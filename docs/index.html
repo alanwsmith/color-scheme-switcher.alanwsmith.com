@@ -45,8 +45,6 @@
       as="font" 
       type="font/woff" 
       crossorigin />
-    <link rel="preload" href="/styles/vars-dark.css" as="style" />
-    <link rel="preload" href="/styles/vars-light.css" as="style" />
     <link rel="preload" href="/styles/theme.css" as="style" />
     <title>Vanilla JavaScript Theme Switcher</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -70,9 +68,6 @@
         in terms of accessibility best practices. I'm doing a full write up 
         as well that I'll published when everything is finalized. 
       </p>
-      <h2>Note</h2>
-      <p>I'm doing this by switching out stylesheets. I expect to change that to using 
-        a class on the body tag, but this is where I started.</p>
       <!--
       <p>This page is an example of using the techniques described
         in the post: <a href="">Make A Dark/Light Mode Theme Switcher That Doesn't Cause
@@ -90,6 +85,10 @@ A Flash Of Unstyled Content With Vanilla JavaScript</a>.</p>
         <li>Default to dark mode theme if JavaScript is not enabled</li>
         <li>Provide for multiple instances of the switcher that stay in sync</li>
       </ul>
+      <h2>TODO</h2>
+      <ul>
+        <li>Add the ability to track the system preference</li>
+      </ul>
       <h2>Files</h2>
       <p>The source code for this site is on GitHub at:</p>
       <p><a href="https://github.com/alanwsmith/theme-switcher.alanwsmith.com" target="_blank">https://github.com/alanwsmith/theme-switcher.alanwsmith.com</a></p>
@@ -98,8 +97,6 @@ A Flash Of Unstyled Content With Vanilla JavaScript</a>.</p>
         <li><a href="https://raw.githubusercontent.com/alanwsmith/theme-switcher.alanwsmith.com/refs/heads/main/docs/index.html" target="_blank">/index.html</a></li>
         <li><a href="https://raw.githubusercontent.com/alanwsmith/theme-switcher.alanwsmith.com/refs/heads/main/docs/scripts/theme.js" target="_blank">/scripts/theme.js</a></li>
         <li><a href="https://raw.githubusercontent.com/alanwsmith/theme-switcher.alanwsmith.com/refs/heads/main/docs/styles/theme.css" target="_blank">/styles/theme.css</a></li>
-        <li><a href="https://raw.githubusercontent.com/alanwsmith/theme-switcher.alanwsmith.com/refs/heads/main/docs/styles/vars-dark.css" target="_blank">/styles/vars-dark.css</a></li>
-        <li><a href="https://raw.githubusercontent.com/alanwsmith/theme-switcher.alanwsmith.com/refs/heads/main/docs/styles/vars-light.css" target="_blank">/styles/vars-light.css</a></li>
       </ul>
     </main>
     <footer class="wrapper">
@@ -107,7 +104,6 @@ A Flash Of Unstyled Content With Vanilla JavaScript</a>.</p>
       <div class="tag-line">from <a href="https://www.alanwsmith.com/">alan w smith</a></div>
     </footer>
     <noscript>
-      <link rel="stylesheet" href="/styles/vars-dark.css" />
       <link rel="stylesheet" href="/styles/theme.css" />
     </noscript>
 </body>

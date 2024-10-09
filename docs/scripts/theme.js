@@ -29,25 +29,19 @@ function addThemeSwitchers() {
 
 function finishLoadingStylesheets() {
   const currentTheme = localStorage.getItem("theme")
+  const theBody = document.querySelector("body")
   if (currentTheme) {
-    const themeVars = document.createElement( "link" )
-    themeVars.href = `/styles/vars-${currentTheme}.css`
-    themeVars.rel = "stylesheet"
-    document.querySelector("body").appendChild(themeVars)
-  } else {
-    const themeVars = document.createElement( "link" )
-    themeVars.href = `/styles/vars-dark.css`
-    themeVars.rel = "stylesheet"
-    document.querySelector("body").appendChild(themeVars)
+    theBody.dataset.theme = currentTheme
   }
   const themeStyles = document.createElement( "link" )
   themeStyles.href = `/styles/theme.css`
   themeStyles.rel = "stylesheet"
-  document.querySelector("body").appendChild(themeStyles)
+  theBody.appendChild(themeStyles)
 }
 
 function switchTheme(event) {
   const newTheme = event.target.value
+  const theBody = document.querySelector("body")
   console.log(`Switching theme to: ${newTheme}`)
   const switcherNum = parseInt(event.target.dataset.num, 10)
   localStorage.setItem("theme", newTheme)
@@ -64,10 +58,7 @@ function switchTheme(event) {
       }
     })
   })
-  var link = document.createElement( "link" )
-  link.href = `/styles/vars-${newTheme}.css`
-  link.rel = "stylesheet"
-  document.querySelector("body").appendChild(link)
+  theBody.dataset.theme = newTheme
 }
 
 document.addEventListener("DOMContentLoaded", () => {
