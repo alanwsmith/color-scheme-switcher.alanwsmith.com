@@ -45,6 +45,7 @@
       as="font" 
       type="font/woff" 
       crossorigin />
+
     <title>Vanilla JavaScript Theme Switcher</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property="og:title" content="Vanilla JavaScript Theme Switcher" />
@@ -66,11 +67,14 @@
 A Flash Of Unstyled Content With Vanilla JavaScript</a>.</p>
       <h2>Goals</h2>
       <ul>
+        <li>Save the user's preferred theme between visits</li>
         <li>Avoid Flash Of Unstyled Content (FOUC) as much as possible</li>
         <li>Avoid flash of white when loading a new page as much as possible</li>
+        <li>Prevent the Firefox console message &quot;<em>Layout was forced before the page was fully loaded. If stylesheets are not yet loaded this may cause a flash of unstyled content.</em>&quot; as much as possible</li>
+        <li>Use Vanilla JavaScript that can be used with static site generators</li>
         <li>Only show theme picker if JavaScript is enabled</li>
-        <li>Default to dark mode theme if JavaScript is off</li>
-        <li>Allow for multiple instances of the switcher that stay in sync</li>
+        <li>Default to dark mode theme if JavaScript is not enabled</li>
+        <li>Provide for multiple instances of the switcher that stay in sync</li>
         <li>TODO: Cover accessibility best practices</li>
       </ul>
       <h2>Files</h2>
