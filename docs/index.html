@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8" />
+    <script>
+      if (localStorage.getItem('color-mode') === 'light') {
+        document.write(
+          `<style> 
+            body { 
+              background-color: oklch(93.076% 0.03467 92.999); 
+            }
+            html {
+              visibility: hidden;
+            }
+          </style>`
+        )
+      } else {
+        document.write(
+          `<style> 
+            body { 
+              background-color: oklch(16.009% 0.03076 39.927); 
+            } 
+            html { 
+              visibility: hidden; 
+            }
+          </style>`
+        )
+      }
+    </script>
+    <noscript>
+      <style>
+        body { 
+          background-color: oklch(16.009% 0.03076 39.927); 
+        } 
+        html { 
+          visibility: hidden; 
+        }
+      </style>
+    </noscript>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link 
+      rel="preload" 
+      href="https://fonts.gstatic.com/s/afacadflux/v1/9oRdNYYQryMlneUPykRmTuH4ET0fri4I5rJVT_C8EIgoZFamLA.woff2" 
+      as="font" 
+      type="font/woff" 
+      crossorigin />
+    <title>Vanilla JavaScript Theme Switcher</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Vanilla JavaScript Theme Switcher" />
+    <meta property="og:description" content="a post from alan w. smith" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://theme-switcher.alanwsmith.com" />
+    <meta property="og:image" content="https://theme-switcher.alanwsmith.com/images/og-image.jpg" />
+    <script src="/scripts/theme.js" defer></script>
+</head>
+<body>
+    <header class="wrapper">
+      <div class="theme-switcher"></div>
+    </header>
+    <main class="wrapper flow">
+      <h1>Vanilla JavaScript Theme Switcher</h1>
+      <h2>Introduction</h2>
+      <p>This page is an example of using the techniques described
+        in the post: <a href="">Make A Dark/Light Mode Theme Switcher That Doesn't Cause
+A Flash Of Unstyled Content With Vanilla JavaScript</a>.</p>
+      <h2>Goals</h2>
+      <ul>
+        <li>Avoid Flash Of Unstyled Content (FOUC) as much as possible</li>
+        <li>Avoid flash of white when loading a new page as much as possible</li>
+        <li>Only show theme picker if JavaScript is enabled</li>
+        <li>Default to dark mode theme if JavaScript is off</li>
+        <li>Allow for multiple instances of the switcher that stay in sync</li>
+        <li>TODO: Cover accessibility best practices</li>
+      </ul>
+      <h2>Files</h2>
+      <p>The source code for this site is on GitHub at:</p>
+      <p><a href="https://github.com/alanwsmith/theme-switcher.alanwsmith.com">https://github.com/alanwsmith/theme-switcher.alanwsmith.com</a></p>
+    </main>
+    <footer class="wrapper">
+      <div class="theme-switcher"></div>
+    </footer>
+    <noscript>
+      <link rel="stylesheet" href="/styles/vars-dark.css" />
+      <link rel="stylesheet" href="/styles/theme.css" />
+    </noscript>
+</body>
+</html>

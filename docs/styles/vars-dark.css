@@ -1,0 +1,6 @@
+:root {
+  --color-background: oklch(16.009% 0.03076 39.927);
+  --color-text: oklch(96.009% 0.03076 339.927);
+  --color-link: oklch(56.009% 0.23076 99.927);
+  --color-hover: oklch(76.009% 0.13076 159.927);
+}
