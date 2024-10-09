@@ -50,6 +50,12 @@ header {
   border-bottom: 1px solid var(--color-text);
 }
 
+.tag-line{
+  margin-block: 0.9rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
 .theme-switcher {
   display: flex;
   gap: 1rem;
