@@ -1,4 +1,4 @@
-const themes = ["dark", "light"]
+const themes = ["dark", "light", "system"]
 
 function addThemeSwitchers() {
   const switchers = document.querySelectorAll(".theme-switcher")
@@ -17,7 +17,9 @@ function addThemeSwitchers() {
       themeButton.setAttribute('aria-label', `switch to ${theme} mode`)
       if (currentTheme && currentTheme === theme) {
         themeButton.checked = true 
-      } else if (!currentTheme && theme === "dark") {
+      } else if (!currentTheme && theme === "system") {
+        // This makes system the default if nothing
+        // has been selected yet
         themeButton.checked = true 
       }
       themeLabel.appendChild(themeButton)
@@ -28,15 +30,10 @@ function addThemeSwitchers() {
 }
 
 function finishLoadingStylesheets() {
-  const currentTheme = localStorage.getItem("theme")
-  const theBody = document.querySelector("body")
-  if (currentTheme) {
-    theBody.dataset.theme = currentTheme
-  }
   const themeStyles = document.createElement( "link" )
   themeStyles.href = `/styles/theme.css`
   themeStyles.rel = "stylesheet"
-  theBody.appendChild(themeStyles)
+  document.body.appendChild(themeStyles)
 }
 
 function switchTheme(event) {
@@ -58,11 +55,67 @@ function switchTheme(event) {
       }
     })
   })
-  theBody.dataset.theme = newTheme
+  // updateTheme()
+}
+
+function updateTheme() {
+  const currentThemer = localStorage.getItem("themer")
+  if (currentThemer) {
+      document.body.dataset.themer = currentThemer;
+  } else {
+      document.body.dataset.themer = "system";
+  }
+  if (document.body.dataset.themer === "system") {
+    const darkThemeCheck= window.matchMedia("(prefers-color-scheme: dark)")
+    if (prefersDarkScheme.matches) {
+      document.body.dataset.theme = "dark"
+    } else {
+      document.body.dataset.theme = "light"
+    }
+  } else  {
+      document.body.dataset.theme = document.body.dataset.themer
+  }
+}
+
+function duplicateDarkStyles() {
+  for (let sheetNum = 0; sheetNum < document.styleSheets.length; sheetNum++) {
+    const sheet = document.styleSheets[sheetNum]
+    for (let ruleNum = 0; ruleNum < sheet.cssRules.length; ruleNum++) {
+      const rule = sheet.cssRules[ruleNum]
+      if (rule.conditionText === "(prefers-color-scheme: dark)") {
+        for (let subNum = 0; subNum < rule.cssRules.length; subNum++) {
+          const subRule = rule.cssRules[subNum]
+          if (subRule.selectorText === ":root") {
+            const ruleString = subRule
+            const parsedString = ruleString.cssText.replace(subRule.selectorText, "")
+            sheet.insertRule(`[data-theme="dark"] ${parsedString}`, sheet.cssRules.length)
+          }
+        }
+      }
+    }
+  }
+}
+
+function makeContentVisible() {
+  const showSheet = document.createElement("style")
+  showSheet.innerHTML = `html { visibility: visible };`
+  document.body.appendChild(showSheet)
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOMContentLoaded")
-  addThemeSwitchers()
-  finishLoadingStylesheets()
+  //addThemeSwitchers()
+  duplicateDarkStyles()
+  makeContentVisible()
+
+
+  // finishLoadingStylesheets()
+
+
+  // const styleSheetArray = [];
+  // const styleSheets = document.styleSheets;
+  // for (let i = 0; i < styleSheets.length; i++) {
+  //   styleSheetArray.push(styleSheets[i]);
+  // }
+  // console.log(styleSheetArray)
+
 })

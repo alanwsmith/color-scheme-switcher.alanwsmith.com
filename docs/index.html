@@ -3,34 +3,48 @@
 <head>
     <meta charset="UTF-8" />
     <script>
-      if (localStorage.getItem('theme') === 'light') {
-        document.write(
-          `<style> 
-            body { 
-              background-color: oklch(93.076% 0.03467 92.999); 
-            }
-            html {
-              visibility: hidden;
-            }
-          </style>`
-        )
-      } else {
-        document.write(
-          `<style> 
-            body { 
-              background-color: oklch(16.009% 0.03076 39.927); 
-            } 
-            html { 
-              visibility: hidden; 
-            }
-          </style>`
-        )
+      function prefersDark() {
+        const checkDark = window.matchMedia("(prefers-color-scheme: dark)")
+        return checkDark.matches
       }
+      function currentSchemer() {
+        const schemer= localStorage.getItem('schemer')
+        return schemer ? schemer : "system"
+      }
+      function currentScheme() {
+        const scheme = localStorage.getItem('scheme')
+        return scheme ? scheme : "light"
+      }
+      function lightOrDark() {
+        if (currentSchemer() === "system") {
+          return prefersDark() ? "dark" : "light"
+        } else {
+          return currentScheme()
+        }
+      }
+      const startSheet = document.createElement("style")
+      if (lightOrDark() === "dark") {
+        startSheet.innerHTML = `body { 
+          background-color: oklch(16.009% 0.03076 39.927); 
+        } 
+        html { 
+          visibility: hidden; 
+        }`
+      } else {
+        startSheet.innerHTML = `body { 
+            background-color: oklch(93.076% 0.03467 92.999); 
+          } 
+          html { 
+            visibility: hidden; 
+          }`
+      }
+      document.head.appendChild(startSheet)
     </script>
+    <!--
     <noscript>
       <style>
         body { 
-          background-color: oklch(16.009% 0.03076 39.927); 
+          background-color: oklch(93.076% 0.03467 92.999); 
         } 
         html { 
           visibility: hidden; 
@@ -54,8 +68,12 @@
     <meta property="og:url" content="https://theme-switcher.alanwsmith.com" />
     <meta property="og:image" content="https://theme-switcher.alanwsmith.com/images/og-image.jpg" />
     <script src="/scripts/theme.js" defer></script>
+-->
 </head>
 <body>
+    <!--
+      <link rel="stylesheet" href="/styles/theme.css" />
+-->
     <header class="wrapper">
       <div class="theme-switcher"></div>
     </header>
@@ -103,8 +121,10 @@ A Flash Of Unstyled Content With Vanilla JavaScript</a>.</p>
       <div class="theme-switcher"></div>
       <div class="tag-line">from <a href="https://www.alanwsmith.com/">alan w smith</a></div>
     </footer>
+    <!--
     <noscript>
       <link rel="stylesheet" href="/styles/theme.css" />
     </noscript>
+-->
 </body>
 </html>
