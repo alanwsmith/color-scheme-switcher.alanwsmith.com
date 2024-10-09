@@ -14,6 +14,7 @@ function addThemeSwitchers() {
       themeButton.id = `theme-switcher-${theme}-${num}`
       themeButton.value = theme
       themeButton.dataset.num = num
+      themeButton.setAttribute('aria-label', `switch to ${theme} mode`)
       if (currentTheme && currentTheme === theme) {
         themeButton.checked = true 
       } else if (!currentTheme && theme === "dark") {

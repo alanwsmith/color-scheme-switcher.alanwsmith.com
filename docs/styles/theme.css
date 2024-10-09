@@ -21,6 +21,11 @@ a:hover {
   color: var(--color-hover);
 }
 
+a[target="_blank"]:after {
+  content: "\2750";
+  margin: 0 3px 0 5px;
+}
+
 body {
   background-color: var(--color-background);
   color: var(--color-text);
