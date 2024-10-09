@@ -1,79 +1,80 @@
-const themes = ["dark", "light", "system"]
+const schemes = ["dark", "light", "system"]
 
-function addThemeSwitchers() {
-  const switchers = document.querySelectorAll(".theme-switcher")
-  const currentTheme = localStorage.getItem("theme")
+function addschemeSwitchers() {
+  const switchers = document.querySelectorAll(".scheme-switcher")
   switchers.forEach((switcher, num) => {
-    themes.forEach((theme) => {
-      const themeLabel = document.createElement("label")
-      themeLabel.htmlFor = `theme-switcher-${theme}-${num}`
-      themeLabel.innerHTML = `${theme} `
-      const themeButton = document.createElement("input")
-      themeButton.type = "radio"
-      themeButton.name = `theme-switcher-${num}`
-      themeButton.id = `theme-switcher-${theme}-${num}`
-      themeButton.value = theme
-      themeButton.dataset.num = num
-      themeButton.setAttribute('aria-label', `switch to ${theme} mode`)
-      if (currentTheme && currentTheme === theme) {
-        themeButton.checked = true 
-      } else if (!currentTheme && theme === "system") {
-        // This makes system the default if nothing
-        // has been selected yet
-        themeButton.checked = true 
+    schemes.forEach((scheme) => {
+      const schemeLabel = document.createElement("label")
+      schemeLabel.htmlFor = `scheme-switcher-${scheme}-${num}`
+      schemeLabel.innerHTML = `${scheme} `
+      const schemeButton = document.createElement("input")
+      schemeButton.type = "radio"
+      schemeButton.name = `scheme-switcher-${num}`
+      schemeButton.id = `scheme-switcher-${scheme}-${num}`
+      schemeButton.value = scheme
+      schemeButton.dataset.num = num
+      schemeButton.setAttribute('aria-label', `switch to ${scheme} mode`)
+      if (currentSchemer() === scheme) {
+        schemeButton.checked = true 
       }
-      themeLabel.appendChild(themeButton)
-      switcher.appendChild(themeLabel)
-      themeButton.addEventListener("input", switchTheme)
+      schemeLabel.appendChild(schemeButton)
+      switcher.appendChild(schemeLabel)
+      schemeButton.addEventListener("input", switchSchemer)
     })
   })
 }
 
+/*
 function finishLoadingStylesheets() {
-  const themeStyles = document.createElement( "link" )
-  themeStyles.href = `/styles/theme.css`
-  themeStyles.rel = "stylesheet"
-  document.body.appendChild(themeStyles)
+  const schemeStyles = document.createElement( "link" )
+  schemeStyles.href = `/styles/scheme.css`
+  schemeStyles.rel = "stylesheet"
+  document.body.appendChild(schemeStyles)
+}
+*/
+
+function switchSchemer(event) {
+  const newSchemer = event.target.value
+  console.log(`Switching scheme to: ${newSchemer}`)
+  localStorage.setItem("schemer", newSchemer)
+
+
+
+  // const theBody = document.querySelector("body")
+  // const switcherNum = parseInt(event.target.dataset.num, 10)
+  // const switchers = document.querySelectorAll(".scheme-switcher")
+  // switchers.forEach((switcher, num) => {
+  //   schemes.forEach((scheme) => {
+  //     if (switcherNum !== num) {
+  //       const el = document.querySelector(`#scheme-switcher-${scheme}-${num}`)
+  //       if (newscheme === scheme) {
+  //         el.checked = true
+  //       } else {
+  //         el.checked = false
+  //       }
+  //     }
+  //   })
+  // })
+
+  // updatescheme()
 }
 
-function switchTheme(event) {
-  const newTheme = event.target.value
-  const theBody = document.querySelector("body")
-  console.log(`Switching theme to: ${newTheme}`)
-  const switcherNum = parseInt(event.target.dataset.num, 10)
-  localStorage.setItem("theme", newTheme)
-  const switchers = document.querySelectorAll(".theme-switcher")
-  switchers.forEach((switcher, num) => {
-    themes.forEach((theme) => {
-      if (switcherNum !== num) {
-        const el = document.querySelector(`#theme-switcher-${theme}-${num}`)
-        if (newTheme === theme) {
-          el.checked = true
-        } else {
-          el.checked = false
-        }
-      }
-    })
-  })
-  // updateTheme()
-}
-
-function updateTheme() {
-  const currentThemer = localStorage.getItem("themer")
-  if (currentThemer) {
-      document.body.dataset.themer = currentThemer;
+function updatescheme() {
+  const currentschemer = localStorage.getItem("schemer")
+  if (currentschemer) {
+      document.body.dataset.schemer = currentschemer;
   } else {
-      document.body.dataset.themer = "system";
+      document.body.dataset.schemer = "system";
   }
-  if (document.body.dataset.themer === "system") {
-    const darkThemeCheck= window.matchMedia("(prefers-color-scheme: dark)")
+  if (document.body.dataset.schemer === "system") {
+    const darkschemeCheck= window.matchMedia("(prefers-color-scheme: dark)")
     if (prefersDarkScheme.matches) {
-      document.body.dataset.theme = "dark"
+      document.body.dataset.scheme = "dark"
     } else {
-      document.body.dataset.theme = "light"
+      document.body.dataset.scheme = "light"
     }
   } else  {
-      document.body.dataset.theme = document.body.dataset.themer
+      document.body.dataset.scheme = document.body.dataset.schemer
   }
 }
 
@@ -88,7 +89,7 @@ function duplicateDarkStyles() {
           if (subRule.selectorText === ":root") {
             const ruleString = subRule
             const parsedString = ruleString.cssText.replace(subRule.selectorText, "")
-            sheet.insertRule(`[data-theme="dark"] ${parsedString}`, sheet.cssRules.length)
+            sheet.insertRule(`[data-scheme="dark"] ${parsedString}`, sheet.cssRules.length)
           }
         }
       }
@@ -103,8 +104,8 @@ function makeContentVisible() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  //addThemeSwitchers()
-  duplicateDarkStyles()
+  addschemeSwitchers()
+  //duplicateDarkStyles()
   makeContentVisible()
 
 

@@ -3,27 +3,23 @@
 <head>
     <meta charset="UTF-8" />
     <script>
+      function currentSchemer() {
+        const schemer = localStorage.getItem('schemer')
+        return schemer ? schemer : "system"
+      }
       function prefersDark() {
         const checkDark = window.matchMedia("(prefers-color-scheme: dark)")
         return checkDark.matches
       }
-      function currentSchemer() {
-        const schemer= localStorage.getItem('schemer')
-        return schemer ? schemer : "system"
-      }
       function currentScheme() {
-        const scheme = localStorage.getItem('scheme')
-        return scheme ? scheme : "light"
-      }
-      function lightOrDark() {
         if (currentSchemer() === "system") {
           return prefersDark() ? "dark" : "light"
         } else {
-          return currentScheme()
+          return currentSchemer()
         }
       }
       const startSheet = document.createElement("style")
-      if (lightOrDark() === "dark") {
+      if (currentScheme() === "dark") {
         startSheet.innerHTML = `body { 
           background-color: oklch(16.009% 0.03076 39.927); 
         } 
@@ -40,7 +36,6 @@
       }
       document.head.appendChild(startSheet)
     </script>
-    <!--
     <noscript>
       <style>
         body { 
@@ -67,6 +62,8 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://theme-switcher.alanwsmith.com" />
     <meta property="og:image" content="https://theme-switcher.alanwsmith.com/images/og-image.jpg" />
+
+    <!--
     <script src="/scripts/theme.js" defer></script>
 -->
 </head>
@@ -75,7 +72,7 @@
       <link rel="stylesheet" href="/styles/theme.css" />
 -->
     <header class="wrapper">
-      <div class="theme-switcher"></div>
+      <div class="scheme-switcher"></div>
     </header>
     <main class="wrapper flow">
       <h1>Vanilla JavaScript Theme Switcher</h1>
@@ -118,7 +115,7 @@ A Flash Of Unstyled Content With Vanilla JavaScript</a>.</p>
       </ul>
     </main>
     <footer class="wrapper">
-      <div class="theme-switcher"></div>
+      <div class="scheme-switcher"></div>
       <div class="tag-line">from <a href="https://www.alanwsmith.com/">alan w smith</a></div>
     </footer>
     <!--

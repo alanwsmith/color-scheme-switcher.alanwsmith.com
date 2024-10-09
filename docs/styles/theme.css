@@ -69,23 +69,18 @@ header {
   border-bottom: 1px solid var(--color-text);
 }
 
+.scheme-switcher {
+  display: flex;
+  gap: 1rem;
+}
+
 .tag-line{
   margin-block: 0.9rem;
   text-align: center;
   font-size: 0.9rem;
 }
 
-.theme-switcher {
-  display: flex;
-  gap: 1rem;
-}
-
 .wrapper {
   width: min(100vw - 3rem, 58ch);
   margin-inline: auto;
 }
-/*
-html {
-  visibility: visible;
-}
-*/
