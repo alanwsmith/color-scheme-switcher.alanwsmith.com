@@ -73,22 +73,16 @@
       <h1>Vanilla JavaScript Color Scheme Switcher</h1>
       <h2>Introduction</h2>
       <p>This page is a prototype for making a dark/light mode color scheme switcher
-        that prevents flashes of unstyled content (FOUC) as much as possible. 
+        that prevents flashes of unstyled content (FOUC) and loading blink as much as possible. 
         I'm doing a full write up 
         as well that I'll published when everything is finalized. 
       </p>
-      <!--
-      <p>This page is an example of using the techniques described
-        in the post: <a href="">Make A Dark/Light Mode Theme Switcher That Doesn't Cause
-A Flash Of Unstyled Content With Vanilla JavaScript</a>.</p>
--->
       <h2>Goals</h2>
       <ul>
         <li>Use Vanilla JavaScript that can be used with static site generators</li>
         <li>Save the user's preferred scheme between visits</li>
         <li>Avoid Flash Of Unstyled Content (FOUC) as much as possible</li>
-        <li>Avoid flash of white when loading a new page as much as possible</li>
-        <li>Apply ARIA labels to radio buttons</li> 
+        <li>Avoid browser flash when loading a new page as much as possible</li>
         <li>Prevent the Firefox console message &quot;<em>Layout was forced before the page was fully loaded. If stylesheets are not yet loaded this may cause a flash of unstyled content.</em>&quot; as much as possible</li>
         <li>Only show color scheme picker if JavaScript is enabled</li>
         <li>Default to light mode color scheme if JavaScript is not enabled</li>
