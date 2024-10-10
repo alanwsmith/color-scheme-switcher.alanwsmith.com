@@ -63,7 +63,6 @@ footer {
 header {
   margin-block: 1.9rem;
   padding-block: 0.4rem;
-  border-bottom: 1px solid var(--color-text);
 }
 
 .scheme-list {
