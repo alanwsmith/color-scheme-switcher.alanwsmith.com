@@ -1,6 +1,6 @@
-const schemes = ["dark", "light", "auto"]
+const schemes = ["auto", "light", "dark", "black", "white"]
 
-function addschemeSwitchers() {
+function addSchemeSwitchers() {
   const switchers = document.querySelectorAll(".scheme-switcher")
   switchers.forEach((switcher, num) => {
     const fieldSet = document.createElement("fieldset")
@@ -35,7 +35,6 @@ function addschemeSwitchers() {
 
 function switchSchemer(event) {
   const newSchemer = event.target.value
-  console.log(`Switching scheme to: ${newSchemer}`)
   localStorage.setItem("schemer", newSchemer)
   const switcherNum = parseInt(event.target.dataset.num, 10)
   const switchers = document.querySelectorAll(".scheme-switcher")
@@ -90,7 +89,7 @@ function makeContentVisible() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  addschemeSwitchers()
+  addSchemeSwitchers()
   duplicateDarkStyles()
   updateScheme()
   makeContentVisible()
