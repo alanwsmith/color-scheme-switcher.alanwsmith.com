@@ -37,28 +37,25 @@ function switchSchemer(event) {
   const newSchemer = event.target.value
   console.log(`Switching scheme to: ${newSchemer}`)
   localStorage.setItem("schemer", newSchemer)
-
-
-
-  // const theBody = document.querySelector("body")
-  // const switcherNum = parseInt(event.target.dataset.num, 10)
-  // const switchers = document.querySelectorAll(".scheme-switcher")
-  // switchers.forEach((switcher, num) => {
-  //   schemes.forEach((scheme) => {
-  //     if (switcherNum !== num) {
-  //       const el = document.querySelector(`#scheme-switcher-${scheme}-${num}`)
-  //       if (newscheme === scheme) {
-  //         el.checked = true
-  //       } else {
-  //         el.checked = false
-  //       }
-  //     }
-  //   })
-  // })
+  const switcherNum = parseInt(event.target.dataset.num, 10)
+  const switchers = document.querySelectorAll(".scheme-switcher")
+  switchers.forEach((switcher, num) => {
+    schemes.forEach((scheme) => {
+      if (switcherNum !== num) {
+        const el = document.querySelector(`#scheme-switcher-${scheme}-${num}`)
+        if (newSchemer === scheme) {
+          el.checked = true
+        } else {
+          el.checked = false
+        }
+      }
+    })
+  })
 
   // updatescheme()
 }
 
+/*
 function updatescheme() {
   const currentschemer = localStorage.getItem("schemer")
   if (currentschemer) {
@@ -77,6 +74,7 @@ function updatescheme() {
       document.body.dataset.scheme = document.body.dataset.schemer
   }
 }
+*/
 
 function duplicateDarkStyles() {
   for (let sheetNum = 0; sheetNum < document.styleSheets.length; sheetNum++) {
@@ -107,7 +105,6 @@ document.addEventListener("DOMContentLoaded", () => {
   addschemeSwitchers()
   //duplicateDarkStyles()
   makeContentVisible()
-
 
   // finishLoadingStylesheets()
 
