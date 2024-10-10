@@ -12,12 +12,10 @@
         }
       }
       function prefersDark() {
-        const checkDark = window.matchMedia("(prefers-color-scheme: dark)")
-        return checkDark.matches
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
       }
       function prefersLight() {
-        const checkDark = window.matchMedia("(prefers-color-scheme: light)")
-        return checkDark.matches
+        return window.matchMedia("(prefers-color-scheme: light)").matches
       }
       function hasSystem() {
         return prefersDark() || prefersLight() ? true : false
@@ -100,7 +98,7 @@
         as well that I'll published when everything is finalized. 
       </p>
       <h2>Goals</h2>
-      <ul>
+      <ol>
         <li>Use Vanilla JavaScript that can be used with static site generators</li>
         <li>Save the user's preferred scheme between visits</li>
         <li>Avoid Flash Of Unstyled Content (FOUC) as much as possible</li>
@@ -110,7 +108,8 @@
         <li>Only show 'auto' button if there is data for it</li>
         <li>Default to light mode color scheme if JavaScript is not enabled</li>
         <li>Provide for multiple instances of the switcher that stay in sync</li>
-      </ul>
+        <li>Update the <code>color-scheme</code> CSS property to style form controls, etc...</li>
+      </ol>
       <h2>Files</h2>
       <p>The source code for this site is on GitHub at:</p>
       <p><a href="https://github.com/alanwsmith/color-scheme-switcher.alanwsmith.com" target="_blank">https://github.com/alanwsmith/color-scheme-switcher.alanwsmith.com</a></p>
