@@ -51,30 +51,16 @@ function switchSchemer(event) {
       }
     })
   })
-
-  // updatescheme()
+  updateScheme()
 }
 
-/*
-function updatescheme() {
-  const currentschemer = localStorage.getItem("schemer")
-  if (currentschemer) {
-      document.body.dataset.schemer = currentschemer;
+function updateScheme() {
+  if (currentSchemer() === "system") {
+    document.body.dataset.scheme = "system"
   } else {
-      document.body.dataset.schemer = "system";
-  }
-  if (document.body.dataset.schemer === "system") {
-    const darkschemeCheck= window.matchMedia("(prefers-color-scheme: dark)")
-    if (prefersDarkScheme.matches) {
-      document.body.dataset.scheme = "dark"
-    } else {
-      document.body.dataset.scheme = "light"
-    }
-  } else  {
-      document.body.dataset.scheme = document.body.dataset.schemer
+    document.body.dataset.scheme = currentScheme()
   }
 }
-*/
 
 function duplicateDarkStyles() {
   for (let sheetNum = 0; sheetNum < document.styleSheets.length; sheetNum++) {
@@ -104,6 +90,7 @@ function makeContentVisible() {
 document.addEventListener("DOMContentLoaded", () => {
   addschemeSwitchers()
   //duplicateDarkStyles()
+  updateScheme()
   makeContentVisible()
 
   // finishLoadingStylesheets()

@@ -1,15 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap');
 
-:root, [data-theme="light"] {
+:root, [data-scheme="light"] {
   --color-background: oklch(93.076% 0.03467 92.999);
   --color-text: oklch(33.076% 0.13467 212.999);
   --color-link: oklch(53.076% 0.13467 92.999);
   --color-hover: oklch(53.076% 0.23467 332.999);
 }
 
-[data-theme="dark"],  {
-  --color-background: blue;
-}
 @media (prefers-color-scheme: dark) {
   :root {
     --color-background: oklch(16.009% 0.03076 39.927);
@@ -17,6 +14,11 @@
     --color-link: oklch(56.009% 0.23076 99.927);
     --color-hover: oklch(76.009% 0.13076 159.927);
   }
+}
+
+
+[data-scheme="dark"]  {
+  --color-background: blue;
 }
 
 *, 
