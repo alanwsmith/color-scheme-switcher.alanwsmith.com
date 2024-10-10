@@ -2,9 +2,11 @@
 
 :root, [data-scheme="light"] {
   --color-background: oklch(93.076% 0.03467 92.999);
-  --color-text: oklch(33.076% 0.13467 212.999);
+  --color-alfa: oklch(33.076% 0.13467 212.999);
   --color-link: oklch(53.076% 0.13467 92.999);
   --color-hover: oklch(53.076% 0.23467 332.999);
+  --color-text: oklch(33.076% 0.03467 92.999);
+  --color-charlie: oklch(53.076% 0.03467 332.999);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,6 +15,11 @@
     --color-text: oklch(96.009% 0.03076 339.927);
     --color-link: oklch(66.009% 0.23076 99.927);
     --color-hover: oklch(56.009% 0.13076 159.927);
+    --color-alfa: oklch(56.009% 0.23076 219.927);
+  --color-charlie: oklch(36.009% 0.33076 99.927);
+  --color-delta: oklch(56.009% 0.23076 99.927);
+  --color-echo: oklch(76.009% 0.43076 159.927);
+  --color-foxtrot: oklch(76.009% 0.13076 159.927);
   }
 }
 
@@ -45,6 +52,7 @@ a[target="_blank"]:after {
 body {
   background-color: var(--color-background);
   color: var(--color-text);
+  font-size: 16px;
   font-family: "Afacad Flux";
   font-size: clamp(1.13rem, calc(1.08rem + 0.22vw), 1.25rem);
   line-height: 1.5; 
@@ -58,6 +66,20 @@ footer {
   margin-block: 1.9rem;
   padding-block: 0.4rem;
   border-top: 1px solid var(--color-text);
+}
+
+h1 {
+  font-size: 3.2rem;
+  line-height: 1.1;
+  text-wrap: balance;
+  font-weight: 900;
+  color: var(--color-alfa);
+}
+
+h2 {
+  font-weight: 900;
+  border-bottom: 1px solid var(--color-charlie);
+  color: var(--color-alfa);
 }
 
 header {
