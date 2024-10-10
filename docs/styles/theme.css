@@ -16,11 +16,6 @@
   }
 }
 
-
-[data-scheme="dark"]  {
-  --color-background: blue;
-}
-
 *, 
 *::before, 
 *::after {

@@ -89,7 +89,7 @@ function makeContentVisible() {
 
 document.addEventListener("DOMContentLoaded", () => {
   addschemeSwitchers()
-  //duplicateDarkStyles()
+  duplicateDarkStyles()
   updateScheme()
   makeContentVisible()
 
