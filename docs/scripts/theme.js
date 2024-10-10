@@ -3,6 +3,11 @@ const schemes = ["dark", "light", "system"]
 function addschemeSwitchers() {
   const switchers = document.querySelectorAll(".scheme-switcher")
   switchers.forEach((switcher, num) => {
+    const fieldSet = document.createElement("fieldset")
+    fieldSet.classList.add("scheme-list")
+    const legend = document.createElement("legend")
+    legend.innerHTML = "Color Scheme"
+    fieldSet.appendChild(legend)
     schemes.forEach((scheme) => {
       const schemeLabel = document.createElement("label")
       schemeLabel.htmlFor = `scheme-switcher-${scheme}-${num}`
@@ -13,25 +18,16 @@ function addschemeSwitchers() {
       schemeButton.id = `scheme-switcher-${scheme}-${num}`
       schemeButton.value = scheme
       schemeButton.dataset.num = num
-      schemeButton.setAttribute('aria-label', `switch to ${scheme} mode`)
       if (currentSchemer() === scheme) {
         schemeButton.checked = true 
       }
-      schemeLabel.appendChild(schemeButton)
-      switcher.appendChild(schemeLabel)
       schemeButton.addEventListener("input", switchSchemer)
+      schemeLabel.appendChild(schemeButton)
+      fieldSet.appendChild(schemeLabel)
     })
+    switcher.appendChild(fieldSet)
   })
 }
-
-/*
-function finishLoadingStylesheets() {
-  const schemeStyles = document.createElement( "link" )
-  schemeStyles.href = `/styles/scheme.css`
-  schemeStyles.rel = "stylesheet"
-  document.body.appendChild(schemeStyles)
-}
-*/
 
 function switchSchemer(event) {
   const newSchemer = event.target.value
@@ -92,15 +88,4 @@ document.addEventListener("DOMContentLoaded", () => {
   duplicateDarkStyles()
   updateScheme()
   makeContentVisible()
-
-  // finishLoadingStylesheets()
-
-
-  // const styleSheetArray = [];
-  // const styleSheets = document.styleSheets;
-  // for (let i = 0; i < styleSheets.length; i++) {
-  //   styleSheetArray.push(styleSheets[i]);
-  // }
-  // console.log(styleSheetArray)
-
 })
