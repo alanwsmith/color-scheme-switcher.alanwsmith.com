@@ -3,34 +3,43 @@
 <head>
     <meta charset="UTF-8" />
     <script>
-      if (localStorage.getItem('theme') === 'light') {
-        document.write(
-          `<style> 
-            body { 
-              background-color: oklch(93.076% 0.03467 92.999); 
-            }
-            html {
-              visibility: hidden;
-            }
-          </style>`
-        )
-      } else {
-        document.write(
-          `<style> 
-            body { 
-              background-color: oklch(16.009% 0.03076 39.927); 
-            } 
-            html { 
-              visibility: hidden; 
-            }
-          </style>`
-        )
+      function currentSchemer() {
+        const schemer = localStorage.getItem('schemer')
+        return schemer ? schemer : "system"
       }
+      function prefersDark() {
+        const checkDark = window.matchMedia("(prefers-color-scheme: dark)")
+        return checkDark.matches
+      }
+      function currentScheme() {
+        if (currentSchemer() === "system") {
+          return prefersDark() ? "dark" : "light"
+        } else {
+          return currentSchemer()
+        }
+      }
+      const startSheet = document.createElement("style")
+      if (currentScheme() === "dark") {
+        startSheet.innerHTML = `body { 
+          background-color: oklch(16.009% 0.03076 39.927); 
+        } 
+        html { 
+          visibility: hidden; 
+        }`
+      } else {
+        startSheet.innerHTML = `body { 
+            background-color: oklch(93.076% 0.03467 92.999); 
+          } 
+          html { 
+            visibility: hidden; 
+          }`
+      }
+      document.head.appendChild(startSheet)
     </script>
     <noscript>
       <style>
         body { 
-          background-color: oklch(16.009% 0.03076 39.927); 
+          background-color: oklch(93.076% 0.03467 92.999); 
         } 
         html { 
           visibility: hidden; 
@@ -46,26 +55,26 @@
       type="font/woff" 
       crossorigin />
     <link rel="preload" href="/styles/theme.css" as="style" />
-    <title>Vanilla JavaScript Theme Switcher</title>
+    <title>Vanilla JavaScript Color Scheme Switcher</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta property="og:title" content="Vanilla JavaScript Theme Switcher" />
+    <meta property="og:title" content="Vanilla JavaScript Color Scheme Switcher" />
     <meta property="og:description" content="a post from alan w. smith" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://theme-switcher.alanwsmith.com" />
-    <meta property="og:image" content="https://theme-switcher.alanwsmith.com/images/og-image.jpg" />
+    <meta property="og:url" content="https://color-scheme-switcher.alanwsmith.com" />
+    <meta property="og:image" content="https://color-scheme-switcher.alanwsmith.com/images/og-image.jpg" />
     <script src="/scripts/theme.js" defer></script>
 </head>
 <body>
+    <link rel="stylesheet" href="/styles/theme.css" />
     <header class="wrapper">
-      <div class="theme-switcher"></div>
+      <div class="scheme-switcher"></div>
     </header>
     <main class="wrapper flow">
-      <h1>Vanilla JavaScript Theme Switcher</h1>
+      <h1>Vanilla JavaScript Color Scheme Switcher</h1>
       <h2>Introduction</h2>
-      <p>This page is a work in progress for making a dark/light mode theme switcher
+      <p>This page is a prototype for making a dark/light mode color scheme switcher
         that prevents flashes of unstyled content (FOUC) as much as possible. 
-        The basics are all in place except for figuring out what I need to do 
-        in terms of accessibility best practices. I'm doing a full write up 
+        I'm doing a full write up 
         as well that I'll published when everything is finalized. 
       </p>
       <!--
@@ -76,35 +85,31 @@ A Flash Of Unstyled Content With Vanilla JavaScript</a>.</p>
       <h2>Goals</h2>
       <ul>
         <li>Use Vanilla JavaScript that can be used with static site generators</li>
-        <li>Save the user's preferred theme between visits</li>
+        <li>Save the user's preferred scheme between visits</li>
         <li>Avoid Flash Of Unstyled Content (FOUC) as much as possible</li>
         <li>Avoid flash of white when loading a new page as much as possible</li>
         <li>Apply ARIA labels to radio buttons</li> 
         <li>Prevent the Firefox console message &quot;<em>Layout was forced before the page was fully loaded. If stylesheets are not yet loaded this may cause a flash of unstyled content.</em>&quot; as much as possible</li>
-        <li>Only show theme picker if JavaScript is enabled</li>
-        <li>Default to dark mode theme if JavaScript is not enabled</li>
+        <li>Only show color scheme picker if JavaScript is enabled</li>
+        <li>Default to light mode color scheme if JavaScript is not enabled</li>
         <li>Provide for multiple instances of the switcher that stay in sync</li>
-      </ul>
-      <h2>TODO</h2>
-      <ul>
-        <li>Add the ability to track the system preference</li>
       </ul>
       <h2>Files</h2>
       <p>The source code for this site is on GitHub at:</p>
-      <p><a href="https://github.com/alanwsmith/theme-switcher.alanwsmith.com" target="_blank">https://github.com/alanwsmith/theme-switcher.alanwsmith.com</a></p>
+      <p><a href="https://github.com/alanwsmith/color-scheme-switcher.alanwsmith.com" target="_blank">https://github.com/alanwsmith/color-scheme-switcher.alanwsmith.com</a></p>
       <p>The individual files are:</p>
       <ul>
-        <li><a href="https://raw.githubusercontent.com/alanwsmith/theme-switcher.alanwsmith.com/refs/heads/main/docs/index.html" target="_blank">/index.html</a></li>
-        <li><a href="https://raw.githubusercontent.com/alanwsmith/theme-switcher.alanwsmith.com/refs/heads/main/docs/scripts/theme.js" target="_blank">/scripts/theme.js</a></li>
-        <li><a href="https://raw.githubusercontent.com/alanwsmith/theme-switcher.alanwsmith.com/refs/heads/main/docs/styles/theme.css" target="_blank">/styles/theme.css</a></li>
+        <li><a href="https://raw.githubusercontent.com/alanwsmith/color-scheme-switcher.alanwsmith.com/refs/heads/main/docs/index.html" target="_blank">/index.html</a></li>
+        <li><a href="https://raw.githubusercontent.com/alanwsmith/color-scheme-switcher.alanwsmith.com/refs/heads/main/docs/scripts/theme.js" target="_blank">/scripts/theme.js</a></li>
+        <li><a href="https://raw.githubusercontent.com/alanwsmith/color-scheme-switcher.alanwsmith.com/refs/heads/main/docs/styles/theme.css" target="_blank">/styles/theme.css</a></li>
       </ul>
     </main>
     <footer class="wrapper">
-      <div class="theme-switcher"></div>
+      <div class="scheme-switcher"></div>
       <div class="tag-line">from <a href="https://www.alanwsmith.com/">alan w smith</a></div>
     </footer>
     <noscript>
-      <link rel="stylesheet" href="/styles/theme.css" />
+      <style>html { visibility: visible; }</style>
     </noscript>
 </body>
 </html>

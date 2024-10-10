@@ -1,56 +1,49 @@
-const themes = ["dark", "light"]
+const schemes = ["dark", "light", "system"]
 
-function addThemeSwitchers() {
-  const switchers = document.querySelectorAll(".theme-switcher")
-  const currentTheme = localStorage.getItem("theme")
+function addschemeSwitchers() {
+  const switchers = document.querySelectorAll(".scheme-switcher")
   switchers.forEach((switcher, num) => {
-    themes.forEach((theme) => {
-      const themeLabel = document.createElement("label")
-      themeLabel.htmlFor = `theme-switcher-${theme}-${num}`
-      themeLabel.innerHTML = `${theme} `
-      const themeButton = document.createElement("input")
-      themeButton.type = "radio"
-      themeButton.name = `theme-switcher-${num}`
-      themeButton.id = `theme-switcher-${theme}-${num}`
-      themeButton.value = theme
-      themeButton.dataset.num = num
-      themeButton.setAttribute('aria-label', `switch to ${theme} mode`)
-      if (currentTheme && currentTheme === theme) {
-        themeButton.checked = true 
-      } else if (!currentTheme && theme === "dark") {
-        themeButton.checked = true 
+    schemes.forEach((scheme) => {
+      const schemeLabel = document.createElement("label")
+      schemeLabel.htmlFor = `scheme-switcher-${scheme}-${num}`
+      schemeLabel.innerHTML = `${scheme} `
+      const schemeButton = document.createElement("input")
+      schemeButton.type = "radio"
+      schemeButton.name = `scheme-switcher-${num}`
+      schemeButton.id = `scheme-switcher-${scheme}-${num}`
+      schemeButton.value = scheme
+      schemeButton.dataset.num = num
+      schemeButton.setAttribute('aria-label', `switch to ${scheme} mode`)
+      if (currentSchemer() === scheme) {
+        schemeButton.checked = true 
       }
-      themeLabel.appendChild(themeButton)
-      switcher.appendChild(themeLabel)
-      themeButton.addEventListener("input", switchTheme)
+      schemeLabel.appendChild(schemeButton)
+      switcher.appendChild(schemeLabel)
+      schemeButton.addEventListener("input", switchSchemer)
     })
   })
 }
 
+/*
 function finishLoadingStylesheets() {
-  const currentTheme = localStorage.getItem("theme")
-  const theBody = document.querySelector("body")
-  if (currentTheme) {
-    theBody.dataset.theme = currentTheme
-  }
-  const themeStyles = document.createElement( "link" )
-  themeStyles.href = `/styles/theme.css`
-  themeStyles.rel = "stylesheet"
-  theBody.appendChild(themeStyles)
+  const schemeStyles = document.createElement( "link" )
+  schemeStyles.href = `/styles/scheme.css`
+  schemeStyles.rel = "stylesheet"
+  document.body.appendChild(schemeStyles)
 }
+*/
 
-function switchTheme(event) {
-  const newTheme = event.target.value
-  const theBody = document.querySelector("body")
-  console.log(`Switching theme to: ${newTheme}`)
+function switchSchemer(event) {
+  const newSchemer = event.target.value
+  console.log(`Switching scheme to: ${newSchemer}`)
+  localStorage.setItem("schemer", newSchemer)
   const switcherNum = parseInt(event.target.dataset.num, 10)
-  localStorage.setItem("theme", newTheme)
-  const switchers = document.querySelectorAll(".theme-switcher")
+  const switchers = document.querySelectorAll(".scheme-switcher")
   switchers.forEach((switcher, num) => {
-    themes.forEach((theme) => {
+    schemes.forEach((scheme) => {
       if (switcherNum !== num) {
-        const el = document.querySelector(`#theme-switcher-${theme}-${num}`)
-        if (newTheme === theme) {
+        const el = document.querySelector(`#scheme-switcher-${scheme}-${num}`)
+        if (newSchemer === scheme) {
           el.checked = true
         } else {
           el.checked = false
@@ -58,11 +51,56 @@ function switchTheme(event) {
       }
     })
   })
-  theBody.dataset.theme = newTheme
+  updateScheme()
+}
+
+function updateScheme() {
+  if (currentSchemer() === "system") {
+    document.body.dataset.scheme = "system"
+  } else {
+    document.body.dataset.scheme = currentScheme()
+  }
+}
+
+function duplicateDarkStyles() {
+  for (let sheetNum = 0; sheetNum < document.styleSheets.length; sheetNum++) {
+    const sheet = document.styleSheets[sheetNum]
+    for (let ruleNum = 0; ruleNum < sheet.cssRules.length; ruleNum++) {
+      const rule = sheet.cssRules[ruleNum]
+      if (rule.conditionText === "(prefers-color-scheme: dark)") {
+        for (let subNum = 0; subNum < rule.cssRules.length; subNum++) {
+          const subRule = rule.cssRules[subNum]
+          if (subRule.selectorText === ":root") {
+            const ruleString = subRule
+            const parsedString = ruleString.cssText.replace(subRule.selectorText, "")
+            sheet.insertRule(`[data-scheme="dark"] ${parsedString}`, sheet.cssRules.length)
+          }
+        }
+      }
+    }
+  }
+}
+
+function makeContentVisible() {
+  const showSheet = document.createElement("style")
+  showSheet.innerHTML = `html { visibility: visible };`
+  document.body.appendChild(showSheet)
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOMContentLoaded")
-  addThemeSwitchers()
-  finishLoadingStylesheets()
+  addschemeSwitchers()
+  duplicateDarkStyles()
+  updateScheme()
+  makeContentVisible()
+
+  // finishLoadingStylesheets()
+
+
+  // const styleSheetArray = [];
+  // const styleSheets = document.styleSheets;
+  // for (let i = 0; i < styleSheets.length; i++) {
+  //   styleSheetArray.push(styleSheets[i]);
+  // }
+  // console.log(styleSheetArray)
+
 })
