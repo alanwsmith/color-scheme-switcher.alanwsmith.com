@@ -1,4 +1,4 @@
-const schemes = ["dark", "light", "system"]
+const schemes = ["dark", "light", "auto"]
 
 function addschemeSwitchers() {
   const switchers = document.querySelectorAll(".scheme-switcher")
@@ -9,21 +9,25 @@ function addschemeSwitchers() {
     legend.innerHTML = "Color Scheme"
     fieldSet.appendChild(legend)
     schemes.forEach((scheme) => {
-      const schemeLabel = document.createElement("label")
-      schemeLabel.htmlFor = `scheme-switcher-${scheme}-${num}`
-      schemeLabel.innerHTML = `${scheme} `
-      const schemeButton = document.createElement("input")
-      schemeButton.type = "radio"
-      schemeButton.name = `scheme-switcher-${num}`
-      schemeButton.id = `scheme-switcher-${scheme}-${num}`
-      schemeButton.value = scheme
-      schemeButton.dataset.num = num
-      if (currentSchemer() === scheme) {
-        schemeButton.checked = true 
+      if (scheme === "auto" && !hasSystem()) {
+        // skip system if there isn't data for it
+      } else {
+        const schemeLabel = document.createElement("label")
+        schemeLabel.htmlFor = `scheme-switcher-${scheme}-${num}`
+        schemeLabel.innerHTML = `${scheme} `
+        const schemeButton = document.createElement("input")
+        schemeButton.type = "radio"
+        schemeButton.name = `scheme-switcher-${num}`
+        schemeButton.id = `scheme-switcher-${scheme}-${num}`
+        schemeButton.value = scheme
+        schemeButton.dataset.num = num
+        if (currentSchemer() === scheme) {
+          schemeButton.checked = true 
+        }
+        schemeButton.addEventListener("input", switchSchemer)
+        schemeLabel.appendChild(schemeButton)
+        fieldSet.appendChild(schemeLabel)
       }
-      schemeButton.addEventListener("input", switchSchemer)
-      schemeLabel.appendChild(schemeButton)
-      fieldSet.appendChild(schemeLabel)
     })
     switcher.appendChild(fieldSet)
   })
@@ -39,10 +43,12 @@ function switchSchemer(event) {
     schemes.forEach((scheme) => {
       if (switcherNum !== num) {
         const el = document.querySelector(`#scheme-switcher-${scheme}-${num}`)
-        if (newSchemer === scheme) {
-          el.checked = true
-        } else {
-          el.checked = false
+        if (el) {
+          if (newSchemer === scheme) {
+            el.checked = true
+          } else {
+            el.checked = false
+          }
         }
       }
     })
@@ -51,8 +57,8 @@ function switchSchemer(event) {
 }
 
 function updateScheme() {
-  if (currentSchemer() === "system") {
-    document.body.dataset.scheme = "system"
+  if (currentSchemer() === "auto") {
+    document.body.dataset.scheme = "auto"
   } else {
     document.body.dataset.scheme = currentScheme()
   }
