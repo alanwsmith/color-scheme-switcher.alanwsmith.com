@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
+    <!-- 01 START: Color Scheme <head> Code -->
     <script>
       function currentSchemer() {
         const schemer = localStorage.getItem('schemer')
@@ -55,6 +55,11 @@
       type="font/woff" 
       crossorigin />
     <link rel="preload" href="/styles/theme.css" as="style" />
+    <script src="/scripts/theme.js" defer></script>
+    <!-- 01 END: Color Scheme <head> Code -->
+
+    <!-- 02 START: Misc <head> metadata stuff -->
+    <meta charset="UTF-8" />
     <title>Vanilla JavaScript Color Scheme Switcher</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property="og:title" content="Vanilla JavaScript Color Scheme Switcher" />
@@ -63,13 +68,18 @@
     <meta property="og:url" content="https://color-scheme-switcher.alanwsmith.com" />
     <meta property="og:image" content="https://color-scheme-switcher.alanwsmith.com/images/og-image.jpg" />
     <meta name="description" content="A prototype dark/light mode color scheme switcher written with vanilla javascript.">
-    <script src="/scripts/theme.js" defer></script>
+    <!-- 02 END: Misc <head> metadata stuff -->
 </head>
 <body>
-    <link rel="stylesheet" href="/styles/theme.css" />
+
     <header class="wrapper">
-      <div class="scheme-switcher"></div>
+    <!-- 03 START: Color Scheme Switcher Lines -->
+    <link rel="stylesheet" href="/styles/theme.css" />
+    <div class="scheme-switcher"></div>
+    <!-- 03 END: Color Scheme Switcher Lines -->
     </header>
+
+    <!-- 04 START: Main Content -->
     <main class="wrapper flow">
       <h1>Vanilla JavaScript Color Scheme Switcher</h1>
       <h2>Introduction</h2>
@@ -103,8 +113,13 @@
       <div class="scheme-switcher"></div>
       <div class="tag-line">from <a href="https://www.alanwsmith.com/">alan w smith</a></div>
     </footer>
+    <!-- 04 END: Main Content -->
+
+    <!-- 05 START: Backup visibility trigger -->
     <noscript>
       <style>html { visibility: visible; }</style>
     </noscript>
+    <!-- 05 END: Backup visibility trigger -->
+
 </body>
 </html>
