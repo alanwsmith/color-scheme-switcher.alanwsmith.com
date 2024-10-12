@@ -35,6 +35,20 @@
         html { 
           visibility: hidden; 
         }`
+      } else if (currentScheme() === "black") {
+        startSheet.innerHTML = `body { 
+          background-color: black; 
+        } 
+        html { 
+          visibility: hidden; 
+        }`
+      } else if (currentScheme() === "white") {
+        startSheet.innerHTML = `body { 
+          background-color: white; 
+        } 
+        html { 
+          visibility: hidden; 
+        }`
       } else {
         startSheet.innerHTML = `body { 
             background-color: oklch(93.076% 0.03467 92.999); 
@@ -119,6 +133,9 @@
         <li><a href="https://raw.githubusercontent.com/alanwsmith/color-scheme-switcher.alanwsmith.com/refs/heads/main/docs/scripts/theme.js" target="_blank">/scripts/theme.js</a></li>
         <li><a href="https://raw.githubusercontent.com/alanwsmith/color-scheme-switcher.alanwsmith.com/refs/heads/main/docs/styles/theme.css" target="_blank">/styles/theme.css</a></li>
       </ul>
+      <h2>Converter</h2>
+      <p><a href="/vs-code-converter.html">VS Code Theme Converter</a></p>
+
     </main>
     <footer class="wrapper">
       <div class="scheme-switcher"></div>
